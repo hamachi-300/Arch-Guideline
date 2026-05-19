@@ -1,0 +1,285 @@
+================================================================================
+                        VIM COMPLETE REFERENCE GUIDE
+                     Professional Tips & Best Practices
+================================================================================
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 1. MODES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Normal Mode   → Default mode, for navigation and commands
+  Insert Mode   → For typing/editing text
+  Visual Mode   → For selecting text
+  Command Mode  → For running : commands
+
+  Switching Modes:
+  ----------------
+  Esc           → Return to Normal mode (always)
+  i             → Insert BEFORE cursor
+  a             → Insert AFTER cursor
+  I             → Insert at START of line
+  A             → Insert at END of line
+  o             → Open new line BELOW and insert
+  O             → Open new line ABOVE and insert
+  v             → Visual mode (character)
+  V             → Visual mode (line)
+  Ctrl+v        → Visual block mode
+  :             → Command mode
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 2. CURSOR MOVEMENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Basic (never use arrow keys!):
+  --------------------------------
+  h             → move left
+  j             → move down
+  k             → move up
+  l             → move right
+
+  Word Movement:
+  --------------------------------
+  w             → next word (start)
+  b             → previous word (start)
+  e             → end of current word
+  W             → next word (ignore punctuation)
+  B             → previous word (ignore punctuation)
+  E             → end of word (ignore punctuation)
+
+  Line Movement:
+  --------------------------------
+  0             → start of line
+  ^             → first non-blank character
+  $             → end of line
+  gg            → top of file
+  G             → bottom of file
+  50G           → jump to line 50
+  :50           → jump to line 50 (command mode)
+
+  Screen Movement:
+  --------------------------------
+  Ctrl+d        → half page down
+  Ctrl+u        → half page up
+  Ctrl+f        → full page down
+  Ctrl+b        → full page up
+  zz            → center screen on cursor
+  zt            → cursor to top of screen
+  zb            → cursor to bottom of screen
+  H             → move cursor to top of screen
+  M             → move cursor to middle of screen
+  L             → move cursor to bottom of screen
+
+  Search to Move (Most Powerful):
+  --------------------------------
+  /word         → search forward
+  ?word         → search backward
+  n             → next match
+  N             → previous match
+  f{char}       → jump TO next char on line
+  t{char}       → jump BEFORE next char on line
+  F{char}       → jump TO previous char on line
+  ;             → repeat f/t forward
+  ,             → repeat f/t backward
+  *             → search word under cursor forward
+  #             → search word under cursor backward
+  %             → jump to matching bracket/paren
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 3. EDITING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Deleting:
+  --------------------------------
+  x             → delete character under cursor
+  X             → delete character before cursor
+  dd            → delete (cut) entire line
+  3dd           → delete 3 lines
+  dw            → delete word
+  d$            → delete to end of line
+  d0            → delete to start of line
+  dG            → delete to end of file
+  dgg           → delete to start of file
+  dap           → delete entire paragraph
+  di(           → delete inside parentheses
+  di"           → delete inside quotes
+  dat           → delete entire HTML/XML tag
+
+  Changing (delete + insert mode):
+  --------------------------------
+  cc            → change entire line
+  cw            → change word
+  c$            → change to end of line
+  ci(           → change inside parentheses
+  ci"           → change inside quotes
+  r{char}       → replace single character
+  R             → replace mode (overwrite)
+
+  Copy & Paste:
+  --------------------------------
+  yy            → yank (copy) line
+  3yy           → yank 3 lines
+  yw            → yank word
+  y$            → yank to end of line
+  yG            → yank to end of file
+  gg then yG    → yank entire file
+  :%y           → yank entire file (command)
+  p             → paste below/after cursor
+  P             → paste above/before cursor
+  ddp           → swap current line with line below
+
+  Undo & Redo:
+  --------------------------------
+  u             → undo
+  Ctrl+r        → redo
+  U             → undo all changes on current line
+
+  Indenting:
+  --------------------------------
+  >>            → indent line right
+  <<            → indent line left
+  ==            → auto-indent line
+  gg=G          → auto-indent entire file
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 4. VISUAL MODE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  v             → start visual (character)
+  V             → start visual (line)
+  Ctrl+v        → visual block (column select)
+  o             → move to other end of selection
+  d             → cut selected
+  y             → copy selected
+  >             → indent selected
+  <             → un-indent selected
+  ~             → toggle case of selected
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 5. SEARCH & REPLACE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  /pattern      → search forward
+  ?pattern      → search backward
+  n / N         → next / previous match
+
+  Replace:
+  --------------------------------
+  :s/old/new/         → replace first on current line
+  :s/old/new/g        → replace all on current line
+  :%s/old/new/g       → replace all in file
+  :%s/old/new/gc      → replace all, confirm each
+  :5,10s/old/new/g    → replace in lines 5 to 10
+
+  Clear search highlight:
+  --------------------------------
+  :noh          → clear highlight
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 6. MARKS & JUMPS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ma            → set mark 'a' at current position
+  'a            → jump to line of mark 'a'
+  `a            → jump to exact position of mark 'a'
+  ''            → jump back to previous position
+  Ctrl+o        → jump to older position in jump list
+  Ctrl+i        → jump to newer position in jump list
+  :marks        → list all marks
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 7. MOVING LINES WITH :move
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  :m +1         → move current line down 1
+  :m -2         → move current line up 1
+  :m 0          → move to top of file
+  :m $          → move to bottom of file
+  :5,10m 20     → move lines 5-10 to after line 20
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 8. FILE & BUFFER COMMANDS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  :w            → save file
+  :w filename   → save as new file
+  :q            → quit
+  :q!           → quit without saving
+  :wq or :x     → save and quit
+  ZZ            → save and quit (normal mode)
+  ZQ            → quit without saving (normal mode)
+  :e filename   → open file
+  :r filename   → insert file content below cursor
+
+  Multiple Files:
+  --------------------------------
+  :bn           → next buffer
+  :bp           → previous buffer
+  :ls           → list open buffers
+  :b2           → switch to buffer 2
+  :split file   → horizontal split
+  :vsplit file  → vertical split
+  Ctrl+w w      → switch between splits
+  Ctrl+w q      → close split
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 9. MACROS (Repeat Complex Actions)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  qa            → start recording macro into register 'a'
+  q             → stop recording
+  @a            → play macro 'a'
+  @@            → repeat last macro
+  10@a          → run macro 'a' 10 times
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 10. USEFUL TRICKS & SHORTCUTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  .             → repeat last change (most powerful!)
+  ~             → toggle case of character
+  gu{motion}    → lowercase  e.g. guw
+  gU{motion}    → uppercase  e.g. gUw
+  J             → join line below to current line
+  Ctrl+a        → increment number under cursor
+  Ctrl+x        → decrement number under cursor
+  ga            → show ASCII value of character
+  :set number   → show line numbers
+  :set paste    → paste mode (avoids auto-indent issues)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 11. BEST PRACTICES (Think Like a Pro)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  1. Never use arrow keys — use h j k l
+  2. Think in motions: w b e f t / ?
+  3. Use . to repeat last action — saves many keystrokes
+  4. Use macros for repetitive multi-step edits
+  5. Use marks to jump between distant locations
+  6. Prefer ci" cw cc over going into insert and backspacing
+  7. Use :%s for find & replace instead of editing manually
+  8. Use gg=G to auto fix indentation of whole file
+  9. Use Ctrl+o / Ctrl+i to navigate jump history
+  10. Combine numbers with commands: 5j, 3dd, 10@a
+
+  Quick cheat:
+  --------------------------------
+  ddp           → swap line with line below
+  yyp           → duplicate current line
+  gg then yG    → copy entire file
+  gg then dG    → delete entire file
+  gg then p     → replace entire file with clipboard
+
+================================================================================
+                             END OF REFERENCE
+================================================================================
