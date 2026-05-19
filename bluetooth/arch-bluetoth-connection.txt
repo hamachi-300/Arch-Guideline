@@ -1,0 +1,137 @@
+Arch Linux Bluetooth & Audio Routing Guide
+
+A minimal, step-by-step guide to set up Bluetooth from scratch, connect earbuds, and manage audio output on Arch Linux.
+
+================================================================================
+
+1. Setup Bluetooth from Scratch
+
+If your Arch Linux has no Bluetooth packages installed:
+
+Install Packages
+Install the Bluetooth stack, PipeWire audio utilities, and the GUI manager:
+
+    sudo pacman -S bluez bluez-utils pipewire-pulse wireplumber blueman
+
+Start & Enable Service
+Enable the Bluetooth service so it starts automatically on boot:
+
+    sudo systemctl enable --now bluetooth
+
+
+================================================================================
+
+2. Connect Your Earbuds (First Time)
+
+To pair and connect your OPPO Enco Buds3 Pro:
+
+1. Put earbuds in Pairing Mode:
+   - Place both earbuds in the charging case.
+   - Leave the lid open.
+   - Press and hold the function button on the case (near the USB-C port) for 2 to 4 seconds until the LED blinks white.
+
+2. Choose a Connection Method:
+
+   Option A: Using GUI (Easiest)
+   - Open the GUI manager:
+     blueman-manager
+   - Click Search, right-click Your Device Name, and click Pair.
+   - Right-click it again, click Trust, and then Connect.
+
+   Option B: Using Terminal (bluetoothctl)
+   - Open the terminal and launch the interactive Bluetooth utility:
+     bluetoothctl
+   - Run these configuration commands:
+     power on
+     agent on
+     scan on
+   - Wait until you see your earbuds appear in the list with their MAC address (e.g. B0:38:E2:93:6E:8D OPPO Enco Buds3 Pro).
+   - Command to show all mac addresses and names that bluetoothctl scan found:
+     devices
+   - Pair, trust, and connect (replace the MAC address below with yours if it differs):
+     pair B0:38:E2:93:6E:8D
+     trust B0:38:E2:93:6E:8D
+     connect B0:38:E2:93:6E:8D
+   - Stop scanning and exit:
+     scan off
+     quit
+
+
+================================================================================
+
+3. Disconnect, Reconnect & Monitor Devices
+
+Find Your Earbuds' MAC Address
+Before disconnecting or reconnecting via the terminal, you need your earbuds' MAC address. Run this command to list all currently connected Bluetooth devices:
+
+    bluetoothctl devices Connected
+
+Output Example:
+Device B0:38:E2:93:6E:8D OPPO Enco Buds3 Pro
+
+See All Active/Broadcasting Devices in the Area (Real-time)
+To see all devices that are currently active, transmitting, or connected nearby right now:
+
+- Option A: Using GUI (Easiest)
+  Open blueman-manager and click Search. It will display a unified list showing already paired devices that are powered on, alongside brand new unpaired devices that are in pairing mode.
+  
+- Option B: Using Terminal
+  Run this command to actively scan the airwaves for broadcasting devices in real-time:
+  
+    bluetoothctl scan on
+  
+  (Note: A Bluetooth device can only be seen if it is actively broadcasting or in pairing mode. If a device is already connected to another machine, it becomes a "ghost" and won't show up).
+
+Disconnect
+- Fastest way: Put the earbuds back in their case and close the lid.
+- Via terminal: Use the MAC address you found using the command above:
+
+    bluetoothctl disconnect B0:38:E2:93:6E:8D
+
+Reconnect
+- Fastest way: Just open the case lid and put them in your ears. They will connect automatically because they are "Trusted".
+- Force connect via terminal:
+
+    bluetoothctl connect B0:38:E2:93:6E:8D
+
+
+================================================================================
+
+4. Manage Audio Output (Switching Devices)
+
+Arch Linux uses PipeWire (wpctl) to route audio.
+
+Step 1: List Your Audio Devices
+Run this command to find the ID of your earbuds or USB headphones:
+
+    wpctl status
+
+Look under the Sinks section:
+
+Sinks:
+   52. NUBWO Analog Stereo (USB Headphone)
+   65. OPPO Enco Buds3 Pro (Earbuds)
+
+Step 2: Switch the Audio Output
+Set the default output using the ID of your preferred device:
+
+- Switch to Earbuds (e.g. ID 65):
+  wpctl set-default 65
+  
+- Switch to USB Headphone (e.g. ID 52):
+  wpctl set-default 52
+
+(Note: Change the IDs 65 and 52 to the actual numbers shown in your wpctl status command.)
+
+
+================================================================================
+
+5. Troubleshooting: Why couldn't I see my earbuds at first?
+
+If you open blueman-manager and nothing appears in the list, it is usually due to two reasons:
+
+1. The Computer is not Scanning:
+   When you first open a Bluetooth manager, it doesn't always scan automatically. You must click the Search button (in GUI) or run scan on (in terminal) to tell your computer's Bluetooth card to actively look for nearby signals.
+
+2. The Earbuds are not in "Pairing Mode":
+   Even if they are out of the case, earbuds do not broadcast their pairing signal unless forced to. They will try to connect to your phone or previous device instead. Putting them back in the case and holding the function button for 2 to 4 seconds (until the light blinks white) forces them to advertise their signal so the computer can find them.

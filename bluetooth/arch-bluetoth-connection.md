@@ -51,9 +51,13 @@ To pair and connect your **OPPO Enco Buds3 Pro**:
      scan on
      ```
    * Wait until you see your earbuds appear in the list with their MAC address (e.g. `B0:38:E2:93:6E:8D OPPO Enco Buds3 Pro`).
+   * Command to show all mac addresses and names that bluetoothctl scan on found.
+     ```text
+     devices
+     ```
    * Pair, trust, and connect (replace the MAC address below with yours if it differs):
      ```text
-     pair B0:38:E2:93:6E:8D [Change to your mac]
+     pair B0:38:E2:93:6E:8D
      trust B0:38:E2:93:6E:8D
      connect B0:38:E2:93:6E:8D
      ```
